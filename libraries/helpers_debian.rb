@@ -59,22 +59,22 @@ module HttpdCookbook
 
       def pid_file
         return "/var/run/#{apache_name}.pid" if apache_version.to_f < 2.4
-        "/var/run/apache2/#{apache_name}.pid"
+        "/run/#{apache_name}/#{apache_name}.pid"
       end
 
       def run_dir
         return "/var/run/#{apache_name}" if apache_version.to_f < 2.4
-        '/var/run/apache2'
+        "/run/#{apache_name}"
       end
 
       def lock_file
-        return "/var/lock/#{apache_name}/accept.lock" if apache_version.to_f < 2.4
+        return "/run/lock/#{apache_name}/accept.lock" if apache_version.to_f < 2.4
         nil
       end
 
       def mutex
         return nil if apache_version.to_f < 2.4
-        "file:/var/lock/#{apache_name} default"
+        "file:/run/lock/#{apache_name} default"
       end
 
       def requires_mpm_packages?
